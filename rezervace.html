@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+ <script>
+  if (window.innerWidth < 100) {
+    document.write('<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1.0, user-scalable=yes">');
+  } else {
+    document.write('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
+  }
+ </script>
+  <title>Rezervace | Kavárna</title>
+  <link rel="icon" href="logos.png">
+ <link rel="stylesheet" href="kafe.css">
+ <style>
+
+  .rezervace-wrapper--menu-open {
+    padding-top: 250px !important;
+  }
+  @media (min-width :474px) and (max-width:540px) {
+    .obsazenost-slot {
+    width: 35px !important;
+  }}
+  @media (min-width :660px)and (max-width: 822px) {
+    @media (max-width: 822px) {
+    
+    .datum-dny {
+        display: flex !important;
+        gap: 8px;
+        justify-content: center !important;
+    }
+}
+  }
+  @media (max-width:350px){
+
+        .datum-dny {
+    
+        gap: 4px !important;
+                max-width: 100%;
+    }
+}
+  @media (max-width:473px){
+         
+    .rezervace-wrapper{       margin: 0 auto !important;    max-width: 90%;}
+.obsazenost-radek {
+        flex-direction: row;
+                min-height: 120px;
+    }
+    .obsazenost-hodiny {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 4px;
+      justify-items: center;
+    }
+.den-obsazenost {
+          margin-bottom: 0px;
+}
+  }
+    @media (max-width: 822px) {
+         .obsazenost-radek.zavreno .obsazenost-den {
+        color: #721c24;
+        max-width: 20%;
+        min-width: 20%;
+        margin: 0px;}
+       @media (max-width: 822px) {
+    .obsazenost-radek.zavreno {
+        max-height: 40px;
+        min-height: 50px;
+        text-align: center;
+        background: #f8d7da;
+        border-radius: 8px !important;
+        padding: 10px 15px !important;
+        flex-direction: row !important;
+        gap: 10% !important;
+    }
+}
+       .datum-dny {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr) !important;
+      gap: 8px ;
+    }
+    .datum-btn:nth-child(1) { grid-column: 2 / 4 !important; }
+    .datum-btn:nth-child(2) { grid-column: 4 / 6 !important; }
+    .datum-btn:nth-child(3) { grid-column: 6 / 8 !important; }
+    .datum-btn:nth-child(4) { grid-column: 1 / 3 !important; }
+    .datum-btn:nth-child(5) { grid-column: 3 / 5 !important; }
+    .datum-btn:nth-child(6) { grid-column: 5 / 7 !important; }
+    .datum-btn:nth-child(7) { grid-column: 7 / 9 !important; }
+
+    #rezForm {
+              display: grid;
+        grid-template-columns: 50% 50% !important;
+        gap: 5px;
+            min-width: 100%;
+        max-width: 100%;
+    }
+    .rezervace-container {
+             max-width: 100% !important;
+        min-width: 100% !important;
+        padding: 0px !important;
+    }
+    .obsazenost-prehled {
+      max-width: 100% !important;
+        min-width: 100% !important;
+        padding: 0px !important;
+    }
+    .rezervace-wrapper {
+     
+        
+        max-width: 90%;
+      flex-direction: column;
+      width :100% !important;
+      margin: 0 auto !important;
+            
+    }
+  }
+.hamburger span {
+            width: 48px;
+        height: 7px;
+        margin: 10px 0;
+        background-color: white;
+        border-radius: 4px;
+        transition: 0.3s;
+}
+ .hamburger span {
+            width: 48px;
+        height: 7px;
+        margin: 10px 0;
+        background-color: white;
+        border-radius: 4px;
+        transition: 0.3s;
+}
+  /* Úprava layoutu pro šířky 1101–1250px, aby se rezervace a obsazenost vešly do body */
+@media (min-width: 1101px) and (max-width: 1250px) {
+    .rezervace-wrapper {
+           gap: 50px !important;
+    }
+         .datum-dny {
+        width: 400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+      }
+    .obsazenost-prehled{
+      width: unset !important;
+    }
+    .rezervace-container {
+      width: unset !important;
+    }
+}
+
+
+
+
+                      #zprava {
+                        grid-column: span 2;
+                        display: block;
+                        width: 100%;
+                        box-sizing: border-box;
+                        text-align: center;
+                        margin-top: 16px;
+                        padding: 16px 0;
+                        border-radius: 8px;
+                        font-size: 1.1em;
+                        font-weight: 500;
+                      }
+                 
+                .rezervace-duration-hint {
+                  white-space: nowrap;
+                }
+            @media (min-width: 1921px) {
+                 obsazenost-radek {
+    flex-direction: row;
+}
+
+.obsazenost-den {
+    min-width: 150px;
+}
+              #rezForm {
+                    gap: 20px;
+              }
+              .rezervace-wrapper {
+                max-width: 2160px;
+                        margin: 100px auto;
+                gap: 77px;
+                padding: 48px 0;
+              }
+              .rezervace-container {
+                min-height: 730px;
+                        width: 720px;
+                font-size: 1.2em;
+                padding: 36px 36px;
+              }
+              .obsazenost-prehled {
+                        width: 720px;
+                font-size: 1.2em;
+                padding: 36px 36px;
+              }
+              h1, h2 {
+                font-size: 2.4em;
+              }
+              .datum-btn {
+                font-size: 1.2em;
+                padding: 18px 0;
+                max-width: 144px;
+              }
+              input, select, button {
+                font-size: 1.2em;
+                padding: 14px 18px;
+              }
+              .obsazenost-slot {
+                font-size: 1.2em;
+                padding: 14px 0;
+                min-width: 48px;
+              }
+            }
+        @media (max-width: 1100px) {
+          .obsazenost-radek {
+    flex-direction: column;
+}
+          .obsazenost-den {
+      margin-left: 35px;
+     min-width: 100%;
+    font-weight: 600;
+    color: #375141;
+    font-size: 1rem;
+      margin-bottom: 15px;
+}
+.obsazenost-prehled h2 {
+    padding-top: 15px;}
+          .rezervace-wrapper {
+                   display: flex;
+        flex-direction: column;
+        gap: 32px;
+        padding: 0px;
+        padding-top: 120px !important;
+          }
+           #rezForm {
+            transform: rotateY(20deg);
+        margin :0  !important;
+        
+      }
+
+
+          .rezervace-container{
+            margin-top: 20px !important;
+                    padding-top: 15px !important;
+            width: 540px;
+                    
+            
+          }
+          .obsazenost-prehled {
+            width: 540px;
+            
+          }
+           @media (max-width: 1100px) and (min-width: 823px) {
+          .datum-dny {
+          display: flex;
+        flex-direction: row;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+      }
+      .datum-btn {
+        flex: 1 1 0;
+        max-width: 120px;
+      } }
+        }
+    @media (min-width: 1100px) and (max-width: 1200px) {
+      obsazenost-radek {
+    flex-direction: row;
+}
+  .obsazenost-hodiny {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    width: 240px;}
+
+.obsazenost-den {
+    min-width: 150px;
+}
+      #rezForm button {
+            padding: 10px !important;
+      }
+      .datum-dny {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 8px;
+    }
+    .datum-btn:nth-child(1) { grid-column: 2 / 4 !important; }
+    .datum-btn:nth-child(2) { grid-column: 4 / 6 !important; }
+    .datum-btn:nth-child(3) { grid-column: 6 / 8 !important; }
+    .datum-btn:nth-child(4) { grid-column: 1 / 3 !important; }
+    .datum-btn:nth-child(5) { grid-column: 3 / 5 !important; }
+    .datum-btn:nth-child(6) { grid-column: 5 / 7 !important; }
+    .datum-btn:nth-child(7) { grid-column: 7 / 9 !important; }
+    }
+  
+    @media (min-width: 1201px)  {
+     
+         obsazenost-radek {
+    flex-direction: row;
+}
+
+.obsazenost-den {
+    min-width: 150px;
+}
+      .datum-dny {
+                padding: 20px 0;
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+      }
+      .datum-btn {
+        flex: 1 1 0;
+        max-width: 120px;
+      }
+    } 
+ @media (min-width: 1201px) and (max-width: 1920px) {
+      
+    .obsazenost-hodiny {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    width: 240px;}}
+   
+   
+  
+
+  
+
+    
+  
+ </style>
+</head>
+<body class="kokos">
+  <div class="header">
+       
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <a href="main.html" class="header-link">O NÁS</a>
+                <a href="menu.html" class="header-link">MENU</a>
+                <a href="main.html" class="header-logo">
+                <img class="logo_stred" src="logos.png" alt="Logo">
+            </a>
+                <a href="rezervace.html" class="header-link">REZERVACE</a>
+                <a href="galerie.html" class="header-link">GALERIE</a>
+            </nav>
+        </div>
+
+  <div class="rezervace-wrapper">
+    <div class="rezervace-container">
+      <h1>Rezervace stolu</h1>
+     
+      <form id="rezForm">
+        <input type="text" id="jmeno" placeholder="Jméno" required>
+        <input type="tel" id="telefon" placeholder="Telefon" required>
+        <input type="email" id="email" placeholder="E-mail" required>
+        
+        <div class="datum-vyber">
+          <p class="datum-label">Vyberte den:</p>
+          <div class="datum-dny" id="datumDny"></div>
+          <input type="hidden" id="datum" required>
+        </div>
+        
+        <div class="cas-vyber">
+          <p class="datum-label">Od:</p>
+          <div class="cas-selecty">
+            <select id="hodina" required>
+              <option value="">Hodina</option>
+              <option value="10">10:00</option>
+              <option value="11">11:00</option>
+              <option value="12">12:00</option>
+              <option value="13">13:00</option>
+              <option value="14">14:00</option>
+              <option value="15">15:00</option>
+              <option value="16">16:00</option>
+              <option value="17">17:00</option>
+              <option value="18">18:00</option>
+              <option value="19">19:00</option>
+            </select>
+            <select id="minuta" required>
+              <option value="">Minuty</option>
+              <option value="00">00</option>
+              <option value="30">30</option>
+            </select>
+          </div>
+        </div>
+
+        <p class="rezervace-duration-hint" style="color: #555; font-size: 1em;">Rezervace trvá 1 hodinu a 30 minut.</p>
+
+        <div class="osoby-wrapper">
+          <input type="number" id="osoby" placeholder="Počet osob" required>
+          <small class="osoby-hint">4 osoby = 1 stůl</small>
+        </div>
+
+        <button type="submit">Rezervovat</button>
+
+      <p id="zprava"></p>
+    </div>
+
+    <div class="obsazenost-prehled">
+      <h2>Obsazenost</h2>
+      <div id="obsazenostGrid"></div>
+    </div>
+  </div>
+
+<footer>
+  <div class="container">
+     <p>&copy; 2026 Kafe Střekov.</p>
+  </div>
+</footer>
+
+  <script>
+    // Vlastní kalendář - 7 dní
+    const dnyNazvy = ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'];
+    const mesice = ['ledna', 'února', 'března', 'dubna', 'května', 'června', 'července', 'srpna', 'září', 'října', 'listopadu', 'prosince'];
+    const kontejner = document.getElementById('datumDny');
+    const datumInput = document.getElementById('datum');
+    
+    for (let i = 0; i < 7; i++) {
+      const den = new Date();
+      den.setDate(den.getDate() + i);
+      
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'datum-btn';
+      btn.dataset.datum = den.toISOString().split('T')[0];
+
+      btn.innerHTML = `<span class="den-nazev">${dnyNazvy[den.getDay()]}</span><span class="den-cislo">${den.getDate()}</span><span class="den-mesic">${mesice[den.getMonth()]}</span>`;
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.datum-btn').forEach(b => b.classList.remove('aktivni'));
+        btn.classList.add('aktivni');
+        datumInput.value = btn.dataset.datum;
+      });
+
+      kontejner.appendChild(btn);
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js" onerror="console.error('EmailJS script failed to load')"></script>
+  <script>
+    (function(){
+      if (window.emailjs && typeof emailjs.init === 'function') {
+        emailjs.init("_vjl0jL53DVDmYFmU");
+      } else {
+        console.warn('EmailJS SDK not initialized yet — ensure the SDK loads before sending emails.');
+      }
+    })();
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+    import { 
+      getFirestore, 
+      collection, 
+      addDoc, 
+      getDocs,
+      query,
+      where
+    } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyADcpSKQhPXHA3AdQEvCTUKeQY169RF8u4",
+      authDomain: "kafe-strekov-932ee.firebaseapp.com",
+      projectId: "kafe-strekov-932ee",
+      storageBucket: "kafe-strekov-932ee.firebasestorage.app",
+      messagingSenderId: "173140321608",
+      appId: "1:173140321608:web:ffe8ef549a9b22e8f3bf7d"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Owner copy removed — posílá se pouze zákazníkovi
+
+    const form = document.getElementById("rezForm");
+    const zprava = document.getElementById("zprava");
+    const obsazenostGrid = document.getElementById("obsazenostGrid");
+
+    const dnyNazvyFull = ['Neděle', 'Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota'];
+
+    const CSV_URL_OTEVIRACI = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQz_ZmSJpBy2ebJ4lgXrYsQuPkx6WlQiBQWfqZUAZPKpgtot0aO8a-JNyts2yCQfFgFtEw33XXBOSM7/pub?gid=1604181837&single=true&output=csv";
+
+    function parseCSVLine(line) {
+        const result = [];
+        let current = '';
+        let inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+            const char = line[i];
+            if (char === '"') {
+                inQuotes = !inQuotes;
+            } else if (char === ',' && !inQuotes) {
+                result.push(current.trim());
+                current = '';
+            } else {
+                current += char;
+            }
+        }
+        result.push(current.trim());
+        return result;
+    }
+
+    async function nactiRezervace() {
+        try {
+          // Načtení zavřených dnů z CSV
+          const res = await fetch(CSV_URL_OTEVIRACI);
+          if (!res.ok) {
+            console.error('Chyba při načítání CSV (status):', res.status);
+            return;
+          }
+          const text = await res.text();
+        const rows = text.trim().split("\n").map(parseCSVLine);
+        // Mapování dnů na otevírací dobu / zavřeno
+        const openingMap = {};
+        rows.forEach((cols, idx) => {
+          if (idx === 0) return; // přeskočit hlavičku
+          const day = cols[0]?.trim();
+          const time = cols[1]?.trim();
+          if (!day) return;
+          if (!time || time.toLowerCase().includes('zavřeno')) {
+            openingMap[day] = { closed: true };
+          } else {
+            const parts = time.split(';').map(s => s.trim()).filter(Boolean);
+            const intervals = parts.map(p => {
+              const m = p.match(/(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})/);
+              if (m) {
+                return { startH: parseInt(m[1], 10), startM: parseInt(m[2], 10), endH: parseInt(m[3], 10), endM: parseInt(m[4], 10) };
+              }
+              const m2 = p.match(/(\d{1,2})\s*-\s*(\d{1,2})/);
+              if (m2) return { startH: parseInt(m2[1], 10), startM: 0, endH: parseInt(m2[2], 10), endM: 0 };
+              return null;
+            }).filter(Boolean);
+            if (intervals.length) openingMap[day] = { closed: false, intervals };
+          }
+        });
+
+        // Aplikuj zavřeno také na tlačítka výběru data podle názvu dne (stejně jako main.html)
+        try {
+          const datumButtons = document.querySelectorAll('.datum-btn');
+          datumButtons.forEach(btn => {
+            const iso = btn.dataset.datum;
+            if (!iso) return;
+            const den = new Date(iso);
+            const dayFull = dnyNazvyFull[den.getDay()];
+            const openInfo = openingMap[dayFull];
+            const mes = btn.querySelector('.den-mesic');
+            if (!openInfo || openInfo.closed) {
+              btn.classList.add('zavreno');
+              btn.disabled = true;
+              if (mes) mes.textContent = 'zavřeno';
+            } else {
+              btn.classList.remove('zavreno');
+              btn.disabled = false;
+              if (mes) {
+                mes.textContent = mesice[den.getMonth()];
+              }
+            }
+          });
+        } catch (btnErr) {
+          console.warn('Chyba při aplikaci zavřeno na datum tlačítka:', btnErr);
+        }
+
+        const querySnapshot = await getDocs(collection(db, "rezervace"));
+      
+      // Sběr rezervací podle data a hodiny (počítáme kolik rezervací na slot)
+      const rezervaceMap = {};
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (!rezervaceMap[data.datum]) rezervaceMap[data.datum] = {};
+        const hodina = parseInt(data.od.split(':')[0]);
+        // Každá rezervace zabere 2 sloty (1.5h = 90 min)
+        for (let i = 0; i < 2; i++) {
+          if (!rezervaceMap[data.datum][hodina + i]) rezervaceMap[data.datum][hodina + i] = 0;
+          rezervaceMap[data.datum][hodina + i]++;
+          // Pokud je rezervace pro více než 4 osoby, přičti další 2 stoly
+          if (data.osoby && data.osoby > 4) {
+            rezervaceMap[data.datum][hodina + i] += 2;
+          }
+        }
+      });
+
+      // Generování gridu pro 7 dní
+      obsazenostGrid.innerHTML = '';
+      for (let d = 0; d < 7; d++) {
+        const den = new Date();
+        den.setDate(den.getDate() + d);
+        const datumStr = den.toISOString().split('T')[0];
+        
+        const radek = document.createElement('div');
+        radek.className = 'obsazenost-radek';
+        
+        const nazevDne = document.createElement('div');
+        nazevDne.className = 'obsazenost-den';
+        nazevDne.textContent = `${dnyNazvyFull[den.getDay()]} ${den.getDate()}.${den.getMonth()+1}.`;
+        radek.appendChild(nazevDne);
+        
+        const hodinyDiv = document.createElement('div');
+        hodinyDiv.className = 'obsazenost-hodiny';
+        
+        // Kontrola podle CSV/otevírací doby
+        const dayName = dnyNazvyFull[den.getDay()];
+        const openInfo = openingMap[dayName];
+        if (!openInfo || openInfo.closed) {
+          radek.classList.add('zavreno');
+          const zavrenoSlot = document.createElement('div');
+          zavrenoSlot.className = 'obsazenost-zavreno';
+          zavrenoSlot.textContent = 'Zavřeno';
+          hodinyDiv.appendChild(zavrenoSlot);
+        } else {
+          // Použij první interval jako rozsah hodin (inkluzivně). Fallback: Sobota do 18h, ostatní do 19h
+          let startH = 10;
+          let endH = den.getDay() === 6 ? 18 : 19;
+          if (openInfo.intervals && openInfo.intervals.length) {
+            const it = openInfo.intervals[0];
+            startH = typeof it.startH === 'number' ? it.startH : startH;
+            endH = typeof it.endH === 'number' ? it.endH : endH;
+          }
+          for (let h = startH; h <= endH; h++) {
+                const slot = document.createElement('div');
+                slot.className = 'obsazenost-slot';
+                const pocet = (rezervaceMap[datumStr] && rezervaceMap[datumStr][h]) || 0;
+                if (pocet >= 5) {
+                    slot.classList.add('obsazeno');
+                } else if (pocet > 0) {
+                    slot.classList.add('castecne');
+                }
+                slot.textContent = h;
+                slot.dataset.tooltip = `${pocet}/5 stolů`;
+                hodinyDiv.appendChild(slot);
+            }
+        }
+        radek.appendChild(hodinyDiv);
+        obsazenostGrid.appendChild(radek);
+      }
+    } catch (fetchErr) {
+      console.error('Chyba při načítání nebo parsování CSV:', fetchErr);
+      return;
+    }
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const jmeno = document.getElementById("jmeno").value.trim();
+      const telefon = document.getElementById("telefon").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const datum = document.getElementById("datum").value.trim();
+      const hodina = document.getElementById("hodina").value;
+      const minuta = document.getElementById("minuta").value;
+      const osoby = parseInt(document.getElementById("osoby").value);
+
+      let chyby = [];
+      // Jméno: min 3 znaky, nesmí obsahovat čísla
+      if (!jmeno) chyby.push("Jméno");
+      else if (jmeno.length < 3) chyby.push("Jméno musí mít alespoň 3 znaky");
+      else if (/\d/.test(jmeno)) chyby.push("Jméno nesmí obsahovat čísla");
+
+      // Telefon: pouze čísla, 9 číslic (s mezerou nebo bez)
+      const telCisty = telefon.replace(/\s+/g, "");
+      if (!telefon) chyby.push("Telefon");
+      else if (!/^\d{9}$/.test(telCisty)) chyby.push("Telefon musí mít 9 číslic");
+
+      // Email: základní validace
+      if (!email) chyby.push("E-mail");
+      else if (!/^\S+@\S+\.\S+$/.test(email)) chyby.push("E-mail není platný");
+
+      if (!datum) chyby.push("Datum");
+      if (!hodina) chyby.push("Hodina");
+      if (!minuta) chyby.push("Minuta");
+      if (!osoby || isNaN(osoby)) chyby.push("Počet osob");
+      if (osoby > 8) chyby.push("Maximální počet osob je 8");
+
+      if (chyby.length > 0) {
+        zprava.innerText = "Vyplňte správně: " + chyby.join(", ");
+        return;
+      }
+
+      const novaRezervace = {
+        jmeno,
+        telefon,
+        email,
+        datum,
+        od: hodina + ":" + minuta,
+        delka: 90,
+        osoby
+      };
+
+      try {
+        // Kontrola, zda je vybraný slot volný (kapacita 5 stolů)
+        try {
+          const q = query(collection(db, "rezervace"), where("datum", "==", datum));
+          const snap = await getDocs(q);
+          const slotCounts = {};
+          snap.forEach(sdoc => {
+            const d = sdoc.data();
+            const startH = parseInt(d.od.split(':')[0]);
+            for (let i = 0; i < 2; i++) {
+              const slot = startH + i;
+              if (!slotCounts[slot]) slotCounts[slot] = 0;
+              slotCounts[slot] += 1;
+              if (d.osoby && d.osoby > 4) slotCounts[slot] += 2; // víc osob zabere víc stolů
+            }
+          });
+          const selH = parseInt(hodina);
+          const required = (osoby && !isNaN(osoby) && osoby > 4) ? 1 + 2 : 1; // 1 slot (+2 extra tables if >4 osoby)
+          const nextH = selH + 1;
+          const countSel = slotCounts[selH] || 0;
+          const countNext = slotCounts[nextH] || 0;
+          if ((countSel + required) > 5 || (countNext + required) > 5) {
+            zprava.textContent = "Vybraný čas není dostupný";
+            zprava.style.background = "#f8d7da";
+            zprava.style.color = "#721c24";
+            zprava.style.padding = "12px 16px";
+            zprava.style.borderRadius = "8px";
+            zprava.style.boxShadow = "0 2px 8px rgba(0,0,0,0.06)";
+            zprava.style.display = "block";
+            zprava.style.marginTop = "12px";
+            zprava.setAttribute('role', 'alert');
+            try { zprava.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) {}
+            setTimeout(() => {
+              zprava.style.transition = 'opacity 0.5s';
+              zprava.style.opacity = '0';
+              setTimeout(() => { zprava.style.display = 'none'; zprava.style.opacity = '1'; }, 500);
+            }, 5000);
+            return;
+          }
+        } catch (checkErr) {
+          console.warn('Nelze ověřit obsazenost:', checkErr);
+          chyby.push('Nelze ověřit obsazenost, zkuste později');
+        }
+
+        // Pokud kontrola obsazenosti přidala chyby, nezapisuj rezervaci
+        if (chyby.length > 0) {
+          zprava.innerText = "Vyplňte správně: " + chyby.join(", ");
+          return;
+        }
+
+        await addDoc(collection(db, "rezervace"), novaRezervace);
+          const templateParams = {
+            jmeno,
+            telefon,
+            email,
+            datum,
+            od: hodina + ":" + minuta,
+            osoby
+          };
+          if (window.emailjs && typeof emailjs.send === 'function') {
+            try {
+              const resp = await emailjs.send("service_5pkk4no","template_dm9lunp", templateParams);
+              console.log('EmailJS send response:', resp);
+            } catch (emailErr) {
+              console.error('Email send failed', emailErr);
+            }
+
+            // owner copy removed — odesílá se pouze zákazníkovi
+          } else {
+            console.warn('emailjs not available at submit time; email was not sent.');
+          }
+          // Zvýrazněná notifikace místo jednoduchého textu
+          zprava.textContent = "Rezervace byla uložena ✅";
+          zprava.style.background = "#ffffff";
+          zprava.style.color = "#111";
+          zprava.style.padding = "12px 16px";
+          zprava.style.borderRadius = "8px";
+          zprava.style.boxShadow = "0 2px 8px rgba(0,0,0,0.12)";
+          zprava.style.display = "block";
+          zprava.style.marginTop = "12px";
+          zprava.setAttribute('role', 'status');
+          try { zprava.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) {}
+          // Po 5s notifikaci skryjeme (krátký fade)
+          setTimeout(() => {
+            zprava.style.transition = 'opacity 0.5s';
+            zprava.style.opacity = '0';
+            setTimeout(() => { zprava.style.display = 'none'; zprava.style.opacity = '1'; }, 500);
+          }, 5000);
+          form.reset();
+          nactiRezervace();
+      } catch (err) {
+        console.error(err);
+        zprava.innerText = "Chyba při ukládání rezervace!";
+      }
+    });
+
+    nactiRezervace();
+  </script>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    const headerLinks = navMenu.querySelectorAll('.header-link');
+    const rezervaceWrapper = document.querySelector('.rezervace-wrapper');
+
+    function setRezervaceWrapperClass(open) {
+      if (!rezervaceWrapper) return;
+      // keep original class and toggle a modifier class
+      rezervaceWrapper.classList.toggle('rezervace-wrapper--menu-open', open);
+      // Use inline !important to override other stylesheet !important rules if necessary
+      if (open) {
+        rezervaceWrapper.style.setProperty('padding-top', '250px', 'important');
+      } else {
+        rezervaceWrapper.style.removeProperty('padding-top');
+      }
+    }
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+      document.querySelector('main')?.classList.toggle('menu-open');
+      document.querySelector('.mobile-menu-buttons')?.classList.toggle('menu-open');
+      // change rezervace wrapper class when menu opens/closes
+      setRezervaceWrapperClass(navMenu.classList.contains('active'));
+    });
+
+    headerLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+          document.querySelector('main')?.classList.remove('menu-open');
+          document.querySelector('.mobile-menu-buttons')?.classList.remove('menu-open');
+          setRezervaceWrapperClass(false);
+        });
+    });
+  </script>
+
+</body>
+</html>

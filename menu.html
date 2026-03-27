@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Kafe-střekov</title>
+  <link rel="stylesheet" href="kafe.css">
+  <style>
+
+
+    #menu-container {
+         border: 2px solid #d4a574;
+    border-radius: 15px;
+    max-width: 1400px;
+    background: linear-gradient(135deg, rgb(10 18 14 / 95%) 0%, rgb(23 47 35 / 98%) 100%);
+    box-shadow: 0 8px 32px rgba(212, 165, 116, 0.2), inset 0 0 60px rgba(212, 165, 116, 0.05);
+    position: relative;
+    overflow: hidden;}
+
+    /* Dekorativní obrázky na pozadí s parallax */
+    .deco-img {
+      position: absolute;
+      width: 80px;
+      height: auto;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+      transition: transform 0.1s ease-out;
+    }
+    /*
+    .deco-img.deco-wolt {
+      top: 20%;
+      left: 5%;
+      transform: rotate(-15deg);
+    }
+    .deco-img.deco-foodora {
+      top: 50%;
+      right: 50%;
+      transform: rotate(deg);
+    }
+    .deco-img.deco-instagram {
+      bottom: 55%;
+      left: 20%;
+      transform: rotate(-8deg);
+    }
+    .deco-img.deco-logo {
+      bottom: 20%;
+      right: 8%;
+      width: 300px;
+      transform: rotate(10deg);
+    }*/
+
+    #menu-container::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 1px solid rgba(212, 165, 116, 0.3);
+      border-radius: 10px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    #menu-container > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .menu-table { 
+      width: 100%; 
+      border-collapse: separate; 
+      border-spacing: 0 5px; 
+      margin-bottom: 80px; 
+      color: white; 
+    }
+    .menu-table td { 
+      padding: 15px 10px; 
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+      vertical-align: middle; 
+    }
+    .item-name { font-weight: 600; font-size: 1.2rem; color: #ffffff; text-align: left; }
+    .item-description { font-weight: 400; font-size: 0.85rem; color: rgba(255, 255, 255, 0.6); text-align: left; font-style: italic; padding: 12px 2px; }
+    .item-size { font-weight: 400; font-size: 1rem; color: rgba(255, 255, 255, 0.7); font-style: italic; text-align: center; }
+    .item-price { font-weight: 700; font-size: 1.2rem; color: #d4a574; text-align: right; white-space: nowrap; }
+    
+    /* Responsive - pod 820px: 3 části - name+desc | size | price */
+    @media (max-width: 820px) {
+      .menu-table {
+        display: block;
+      }
+      .menu-table tr {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        grid-template-rows: auto auto;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 10px 0;
+        align-items: center;
+      }
+      .menu-table td {
+        display: block;
+        border-bottom: none !important;
+      }
+      .menu-table td.item-name {
+        grid-column: 1;
+        grid-row: 1;
+        padding: 8px 8px 2px 8px !important;
+        white-space: normal !important;
+      }
+      .menu-table td.item-description {
+        grid-column: 1;
+        grid-row: 2;
+        padding: 2px 8px 8px 8px !important;
+      }
+      .menu-table td.item-description:empty {
+        display: none;
+      }
+      .menu-table td.item-size {
+        grid-column: 2;
+        grid-row: 1 / 3;
+        padding: 8px 15px !important;
+        text-align: center;
+        white-space: nowrap !important;
+        align-self: center;
+      }
+      .menu-table td.item-price {
+        grid-column: 3;
+        grid-row: 1 / 3;
+        padding: 8px !important;
+        text-align: right;
+        white-space: nowrap !important;
+        align-self: center;
+      }
+      /* Pro jídlo bez size - cena ve 2. sloupci */
+      .menu-table tr:not(:has(.item-size)) td.item-price {
+        grid-column: 2;
+        grid-row: 1 / 3;
+        align-self: center;
+      }
+      .menu-sub-category-td {
+        grid-column: 1 / 4;
+        padding: 30px 8px 10px 8px !important;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <button class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </button>
+  <nav class="nav-menu" id="navMenu">
+    <a href="main.html" class="header-link">O NÁS</a>
+    <div class="nav-item-container">
+      <a href="menu.html" class="header-link">MENU</a>
+      <a href="#napojovy-listek" class="sub-link napojovy">NÁPOJOVÝ LÍSTEK</a>
+    </div>
+    <a href="index.html" class="header-logo">
+      <img class="logo_stred" src="logos.png" alt="Logo">
+    </a>
+    <div class="nav-item-container">
+      <a href="rezervace.html" class="header-link">REZERVACE</a>
+      <a href="#jidelni-listek" class="sub-link jidelni">JÍDELNÍ LÍSTEK</a>
+    </div>
+    <a href="galerie.html" class="header-link">GALERIE</a>
+  </nav>
+</div>
+
+<div class="mobile-menu-buttons">
+  <a href="#napojovy-listek" class="mobile-menu-link">NÁPOJOVÝ LÍSTEK</a>
+  <a href="#jidelni-listek" class="mobile-menu-link">JÍDELNÍ LÍSTEK</a>
+</div>
+
+<main>
+<section class="menu-section">
+  <div class="container text-center">
+    <div id="menu-container">
+      <!-- Dekorativní obrázky s parallax -->
+      <img src="wolt.webp" class="deco-img deco-wolt" data-rotation="-15" alt="">
+      <img src="foodora.webp" class="deco-img deco-foodora" data-rotation="12" alt="">
+      <img src="instagram.webp" class="deco-img deco-instagram" data-rotation="-8" alt="">
+      <img src="logos.png" class="deco-img deco-logo" data-rotation="10" alt="">
+      
+      <h1 class="menu-title">MENU</h1>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+     <p>&copy; 2026 Kafe Střekov.</p>
+  </div>
+</footer>
+
+<script>
+  // =========================
+  // TVOJE CSV ODKAZY Z GOOGLE SHEETS
+  // =========================
+  const CSV_URL_NAPOJE = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQz_ZmSJpBy2ebJ4lgXrYsQuPkx6WlQiBQWfqZUAZPKpgtot0aO8a-JNyts2yCQfFgFtEw33XXBOSM7/pub?output=csv&gid=0";
+  const CSV_URL_JIDLO  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQz_ZmSJpBy2ebJ4lgXrYsQuPkx6WlQiBQWfqZUAZPKpgtot0aO8a-JNyts2yCQfFgFtEw33XXBOSM7/pub?output=csv&gid=2047802503";
+
+  // =========================
+  // parsování CSV řádku (respektuje uvozovky)
+  // =========================
+  function parseCSVLine(line) {
+    const result = [];
+    let current = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+      if (char === '"') {
+        inQuotes = !inQuotes;
+      } else if (char === ',' && !inQuotes) {
+        result.push(current.trim());
+        current = '';
+      } else {
+        current += char;
+      }
+    }
+    result.push(current.trim());
+    return result;
+  }
+
+  // =========================
+  // načtení CSV přes fetch
+  // =========================
+  async function fetchCSV(url) {
+    console.log("Načítám URL:", url);
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Chyba při stahování: " + res.status);
+    const text = await res.text();
+    console.log("Data přijata, délka:", text.length);
+    return text.trim().split("\n").map(r => parseCSVLine(r));
+  }
+
+  // =========================
+  // vykreslení tabulky do HTML
+  // hasSize = true pro nápoje (4 sloupce), false pro jídlo (3 sloupce)
+  // =========================
+  function renderTable(data, title, hasSize = true) {
+    console.log("Vykresluji tabulku:", title, "Počet řádků:", data.length);
+    const container = document.getElementById("menu-container");
+
+    const sectionTitle = document.createElement("h2");
+    sectionTitle.className = "menu-subtitle";
+    sectionTitle.id = title.toLowerCase().replace(/ /g, "-").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    sectionTitle.innerText = title;
+    
+    // Upravený margin pro sjednocení s ostatními sekcemi
+    if (title === "NÁPOJOVÝ LÍSTEK") {
+      sectionTitle.style.marginTop = "60px";
+    } else if (title === "JÍDELNÍ LÍSTEK") {
+      sectionTitle.style.marginTop = "60px";
+    }
+    
+    container.appendChild(sectionTitle);
+    
+    // Přidej čáru pod text
+    if (title === "NÁPOJOVÝ LÍSTEK" || title === "JÍDELNÍ LÍSTEK") {
+      const hr = document.createElement("hr");
+      hr.style.borderTop = "1px solid rgba(255, 255, 255, 0.2)";
+      hr.style.margin = "20px 0 5px 0";
+      container.appendChild(hr);
+    }
+
+    const table = document.createElement("table");
+    table.className = "menu-table";
+
+    // Procházíme všechny řádky
+    let rowIndex = 0;
+    data.forEach(row => {
+      if (!row[0] || row[0].trim() === "") return; // Přeskočí prázdné řádky
+      
+      const tr = document.createElement("tr");
+      
+      // První řádek v nápojovém lístku bude transparentní
+      const isFirstRow = rowIndex === 0 && title === "NÁPOJOVÝ LÍSTEK";
+      if (isFirstRow) {
+        tr.style.opacity = "0";
+        tr.style.height = "0";
+        tr.style.overflow = "hidden";
+      }
+
+      if (hasSize) {
+        // NÁPOJE: 4 sloupce (název, popis, velikost, cena)
+        const hasPrice = row[3] && row[3].trim() !== "";
+        
+        if (!hasPrice) {
+          tr.innerHTML = `
+            <td colspan="4" class="menu-sub-category-td">
+              <h3 class="menu-sub-category-title">${row[0]}</h3>
+            </td>
+          `;
+        } else {
+          tr.innerHTML = `
+            <td class="item-name" style="padding: 12px 8px; width: 1%; white-space: nowrap;">${row[0] || ""}</td>
+            <td class="item-description" style="padding: 12px 8px;">${row[1] || ""}</td>
+            <td class="item-size" style="padding: 12px 8px; opacity: 0.8; font-size: 0.9em; width: 1%; white-space: nowrap;">${row[2] || ""}</td>
+            <td class="item-price" style="padding: 12px 8px; font-weight: bold; text-align: right; width: 1%; white-space: nowrap;">${row[3] ? row[3] + ",- Kč" : ""}</td>
+          `;
+        }
+      } else {
+        // JÍDLO: 3 sloupce (název, popis, cena)
+        const hasPrice = row[2] && row[2].trim() !== "";
+        
+        if (!hasPrice) {
+          tr.innerHTML = `
+            <td colspan="3" class="menu-sub-category-td">
+              <h3 class="menu-sub-category-title">${row[0]}</h3>
+            </td>
+          `;
+        } else {
+          tr.innerHTML = `
+            <td class="item-name" style="padding: 12px 8px; width: 1%; white-space: nowrap;">${row[0] || ""}</td>
+            <td class="item-description" style="padding: 12px 8px;">${row[1] || ""}</td>
+            <td class="item-price" style="padding: 12px 8px; font-weight: bold; text-align: right; width: 1%; white-space: nowrap;">${row[2] ? row[2] + ",- Kč" : ""}</td>
+          `;
+        }
+      }
+      table.appendChild(tr);
+      rowIndex++;
+    });
+
+    container.appendChild(table);
+  }
+
+  // =========================
+  // načteme oba CSV
+  // =========================
+  async function loadMenu() {
+    try {
+      console.log("Start loadMenu...");
+      const napojeData = await fetchCSV(CSV_URL_NAPOJE);
+      renderTable(napojeData, "NÁPOJOVÝ LÍSTEK", true);  // 4 sloupce s velikostí
+
+      const jidloData  = await fetchCSV(CSV_URL_JIDLO);
+      renderTable(jidloData, "JÍDELNÍ LÍSTEK", false);   // 3 sloupce bez velikosti
+    } catch(err) {
+      console.error("Chyba při načítání menu:", err);
+      const container = document.getElementById("menu-container");
+      container.innerHTML += `<p style="color: red;">Chyba: ${err.message}</p>`;
+    }
+  }
+
+  loadMenu();
+</script>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('navMenu');
+  const headerLinks = navMenu.querySelectorAll('.header-link');
+ 
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+      document.querySelector('main')?.classList.toggle('menu-open');
+      document.querySelector('.mobile-menu-buttons')?.classList.toggle('menu-open');
+      // removed dynamic paddingTop; layout handled by CSS (.menu-open)
+    });
+  headerLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          navMenu.classList.remove('active');
+          document.querySelector('main')?.classList.remove('menu-open');
+          document.querySelector('.mobile-menu-buttons')?.classList.remove('menu-open');
+        });
+  });
+</script>
+
+<script>
+  // Parallax efekt pro dekorativní obrázky
+  const menuContainer = document.getElementById('menu-container');
+  const decoImages = document.querySelectorAll('.deco-img');
+  
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const containerTop = menuContainer.offsetTop;
+    const offset = (scrollY - containerTop) * 0.05; // rychlost parallaxu
+    
+    decoImages.forEach((img, index) => {
+      const baseRotation = img.dataset.rotation || 0;
+      const direction = index % 2 === 0 ? 1 : -1;
+      const yMove = offset * (0.8 + index * 0.9) * direction;
+      const xMove = offset * 0.3 * direction;
+      const rotationOffset = offset * 0.05 * direction;
+      
+      img.style.transform = `translate(${xMove}px, ${yMove}px) rotate(${parseFloat(baseRotation) + rotationOffset}deg)`;
+    });
+  });
+</script>
+
+</body>
+</html>
