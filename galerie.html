@@ -6,205 +6,86 @@
     <title>Galerie - Kafe Střekov</title>
     <link rel="stylesheet" href="kafe.css">
     <style>
-        body{ background:linear-gradient(135deg, #f5f1ed 0%, #faf8f5 100%) !important; }
-        .gallery-section{ padding: 40px 0; }
-        .container{ max-width:1100px; margin:0 auto; padding:0 16px; }
-        .gallery-grid{ display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
-        .gallery-grid img{ width:100%; height:200px; object-fit:cover; border-radius:8px; display:block; }
-        @media (max-width:480px){ .gallery-grid img{ height:140px; } }
+        body { background: linear-gradient(135deg,#f5f1ed 0%,#faf8f5 100%); }
+        .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+        .gallery-center { display:flex; justify-content:center; }
+        .gallery-grid { display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap:16px; width:100%; align-items:start; }
+        /* Portrait-friendly thumbnails */
+        .gallery-grid img { width:100%; aspect-ratio: 3/4; object-fit:cover; border-radius:8px; display:block; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform .28s ease, box-shadow .28s ease; }
+        .gallery-grid img:hover { transform: scale(1.03); box-shadow: 0 12px 30px rgba(0,0,0,0.18); }
+        @media (max-width:480px){ .gallery-grid { grid-template-columns: repeat(auto-fill,minmax(140px,1fr)); } .gallery-grid img{ aspect-ratio: 2/3; } }
+        header, footer { text-align:center; }
+
+        @media (min-width: 822px) and (max-width: 1200px) {
+            .gallery-center { padding-top: 160px; }
+        }
+        @media (max-width: 768px) {
+            .gallery-center { padding-top: 100px; }
+        }
+         @media (min-width: 1201px) {
+            .gallery-center { padding-top: 200px; }
+        }
     </style>
 </head>
 <body>
-<main>
-    <header class="site-header">
+    <header>
         <div class="header">
-            <button class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
             <nav class="nav-menu" id="navMenu">
                 <a href="main.html" class="header-link">O NÁS</a>
                 <a href="menu.html" class="header-link">MENU</a>
-                <a href="index.html" class="header-logo">
-                    <img class="logo_stred" src="logos.png" alt="Logo">
-                </a>
+                <a href="index.html" class="header-logo"><img class="logo_stred" src="logos.png" alt="Logo"></a>
                 <a href="rezervace.html" class="header-link">REZERVACE</a>
                 <a href="galerie.html" class="header-link">GALERIE</a>
             </nav>
         </div>
-       
     </header>
 
-    <section class="gallery-section" style="padding-top: 250px;">
+    <main class="gallery-center">
         <div class="container">
-          
-            <div class="gallery-grid" id="galleryGrid">
-                <!-- Gallery grid — add image <img> elements here -->
-            </div>
+            <h1 class="gallery-title" style="text-align:center;margin-bottom:12px;padding-right: 11.5%;">Galerie</h1>
+            <div id="galleryGrid" class="gallery-grid" aria-live="polite"></div>
+            <p id="galleryMsg" style="text-align:center;color:#666;margin-top:12px"></p>
         </div>
-    </section>
-</main>
+    </main>
 
-<footer class="footer">
-    <div class="promoo">
-        <p>vytvořeno q1kachu</p>
-    <div class="container">
-        <p>&copy; 2026 Kafe Střekov.</p>
-    </div>
-</footer>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Kafe Střekov.</p>
+        </div>
+    </footer>
 
-<script>
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    const headerLinks = navMenu?.querySelectorAll('.header-link') || [];
-    const BREAKPOINT = 822;
-    const mainEl = document.querySelector('main');
-
-    function closeMenu() {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-        document.querySelector('main')?.classList.remove('menu-open');
-        if (mainEl) mainEl.style.paddingTop = '';
-    }
-
-    function openMenu() {
-        hamburger.classList.add('active');
-        navMenu.classList.add('active');
-        document.querySelector('main')?.classList.add('menu-open');
-        if (mainEl) {
-            const h = navMenu.getBoundingClientRect().height || navMenu.scrollHeight || 150;
-            mainEl.style.paddingTop = h + 'px';
-        }
-    }
-
-    hamburger?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (navMenu.classList.contains('active')) closeMenu();
-        else openMenu();
-    });
-
-    // Close menu when clicking a header link
-    headerLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            closeMenu();
-        });
-    });
-
-    // Close when clicking outside (only on small screens)
-    document.addEventListener('click', (e) => {
-        if (window.innerWidth <= BREAKPOINT && navMenu.classList.contains('active')) {
-            if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
-                closeMenu();
-            }
-        }
-    });
-
-    // Also handle touchstart for mobile devices
-    document.addEventListener('touchstart', (e) => {
-        if (window.innerWidth <= BREAKPOINT && navMenu.classList.contains('active')) {
-            if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
-                closeMenu();
-            }
-        }
-    });
-
-    // Ensure menu is closed when resizing above breakpoint
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > BREAKPOINT && navMenu.classList.contains('active')) {
-            closeMenu();
-        }
-    });
-</script>
-<!-- gallery data/script removed — header and grid remain -->
-<script>
-    // Load gallery images from Google Sheets TSV
-    (async function loadGalleryFromTSV(){
-        const TSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQz_ZmSJpBy2ebJ4lgXrYsQuPkx6WlQiBQWfqZUAZPKpgtot0aO8a-JNyts2yCQfFgFtEw33XXBOSM7/pub?gid=849544327&single=true&output=tsv";
-        const grid = document.getElementById('galleryGrid');
-        if (!grid) return;
-        try {
-            const res = await fetch(TSV_URL);
-            if (!res.ok) throw new Error('TSV fetch failed: ' + res.status);
-            const txt = await res.text();
-            const lines = txt.trim().split(/\r?\n/).filter(Boolean);
-            if (!lines.length) return;
-            const headers = lines[0].split('\t').map(h => h.trim().toLowerCase());
-            const rows = lines.slice(1).map(l => l.split('\t'));
-
-            // Try to find a column that likely contains image URLs
-            let imgCol = headers.findIndex(h => /url|link|image|obraz|img|picture/i.test(h));
-            if (imgCol === -1) imgCol = 0; // fallback to first column
-
-            // Optional caption column: look for 'title'/'alt'/'caption'
-            let captionCol = headers.findIndex(h => /title|alt|caption|popis|name/i.test(h));
-            if (captionCol === -1) captionCol = null;
-
-            function normalizeImageUrl(u) {
-                if (!u) return u;
-                u = u.trim();
-                // already a direct image link
-                if (/\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i.test(u)) return u;
-                // Google Drive /file/d/ID/view links
-                const m = u.match(/\/d\/([A-Za-z0-9_-]{10,})/);
-                if (m) return 'https://drive.google.com/uc?export=download&id=' + m[1];
-                // Links with ?id=ID
-                const m2 = u.match(/[?&]id=([A-Za-z0-9_-]{10,})/);
-                if (m2) return 'https://drive.google.com/uc?export=download&id=' + m2[1];
-                // fallback: return original
-                return u;
-            }
-
-            rows.forEach(cols => {
-                const raw = (cols[imgCol] || '').trim();
-                const url = normalizeImageUrl(raw);
-                if (!url) return;
-                const wrap = document.createElement('figure');
-                wrap.style.margin = '0';
-                const a = document.createElement('a');
-                a.href = url;
-                a.target = '_blank';
-                a.rel = 'noopener noreferrer';
-                const img = document.createElement('img');
-                img.src = url;
-                img.loading = 'lazy';
-                img.alt = captionCol !== null ? (cols[captionCol] || '').trim() : '';
-                // If image fails to load, replace with a simple link so user can open it
-                img.addEventListener('error', () => {
-                    const link = document.createElement('a');
-                    link.href = raw || url;
-                    link.target = '_blank';
-                    link.rel = 'noopener noreferrer';
-                    link.textContent = 'Otevřít obrázek';
-                    link.style.display = 'inline-block';
-                    link.style.padding = '12px 16px';
-                    link.style.background = '#fff';
-                    link.style.border = '1px solid #ddd';
-                    link.style.borderRadius = '6px';
-                    link.style.color = '#333';
-                    link.style.textDecoration = 'none';
-                    wrap.innerHTML = '';
-                    wrap.appendChild(link);
+    <script>
+        // Load image list from local index.json and render images from obrazky_galerie/
+        (async function(){
+            const grid = document.getElementById('galleryGrid');
+            const msg = document.getElementById('galleryMsg');
+            try {
+                const res = await fetch('obrazky_galerie/index.json');
+                if (!res.ok) throw new Error('index.json not found');
+                const files = await res.json();
+                if (!Array.isArray(files) || files.length === 0) { msg.textContent = 'Galerie je prázdná.'; return; }
+                files.forEach(name => {
+                    const img = document.createElement('img');
+                    img.src = `obrazky_galerie/${name}`;
+                    img.alt = '';
+                    img.loading = 'lazy';
+                    img.addEventListener('error', () => {
+                        const placeholder = document.createElement('div');
+                        placeholder.textContent = 'Obrázek nelze načíst';
+                        placeholder.style.padding = '12px';
+                        placeholder.style.background = '#fff';
+                        placeholder.style.border = '1px solid #eee';
+                        placeholder.style.borderRadius = '6px';
+                        grid.replaceChild(placeholder, img);
+                    });
+                    grid.appendChild(img);
                 });
-                a.appendChild(img);
-                wrap.appendChild(a);
-                if (captionCol !== null && (cols[captionCol] || '').trim()) {
-                    const figcap = document.createElement('figcaption');
-                    figcap.textContent = cols[captionCol].trim();
-                    figcap.style.fontSize = '0.9em';
-                    figcap.style.paddingTop = '6px';
-                    wrap.appendChild(figcap);
-                }
-                grid.appendChild(wrap);
-            });
-        } catch (err) {
-            console.error('Chyba při načítání galerie TSV:', err);
-            const errEl = document.createElement('p');
-            errEl.textContent = 'Galerii se nepodařilo načíst.';
-            errEl.style.color = '#721c24';
-            grid.appendChild(errEl);
-        }
-    })();
-</script>
+            } catch (err) {
+                console.error(err);
+                msg.textContent = 'Galerii se nepodařilo načíst.';
+            }
+        })();
+    </script>
 </body>
 </html>

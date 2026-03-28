@@ -402,7 +402,7 @@
         </div>
 
         <button type="submit">Rezervovat</button>
-
+      </form>
       <p id="zprava"></p>
     </div>
 
@@ -616,6 +616,8 @@
           hodinyDiv.appendChild(zavrenoSlot);
         } else {
           // Použij první interval jako rozsah hodin (inkluzivně). Fallback: Sobota do 18h, ostatní do 19h
+          
+         
           let startH = 10;
           let endH = den.getDay() === 6 ? 18 : 19;
           if (openInfo.intervals && openInfo.intervals.length) {
@@ -636,7 +638,9 @@
                 slot.dataset.tooltip = `${pocet}/5 stolů`;
                 hodinyDiv.appendChild(slot);
             }
+             
         }
+           
         radek.appendChild(hodinyDiv);
         obsazenostGrid.appendChild(radek);
       }
