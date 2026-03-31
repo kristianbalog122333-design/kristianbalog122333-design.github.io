@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kristianbalog122333-design.github.io/galerie.html/sitemap.xml
+Host: https://kristianbalog122333-design.github.io/galerie.html
