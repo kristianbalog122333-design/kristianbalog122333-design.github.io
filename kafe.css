@@ -1544,4 +1544,9 @@ footer p {
     .nav-menu.active {
         position: absolute !important;
     }
+@media (min-width: 992px) and (max-width:1100px){
+    .rezervace-container {
+        width: 540px;
+        padding: 30px !important;
+    }
      
