@@ -17,38 +17,67 @@
     position: relative;
     overflow: hidden;}
 
-    /* Dekorativní obrázky na pozadí s parallax */
+    /* Additional container matching #menu-container sizing */
+    .menu-aux {
+      border: none;
+      border-radius: 15px;
+      max-width: 1400px;
+      background: transparent;
+      box-shadow: none;
+      position: absolute; /* overlap */
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 100%;
+      z-index: 4;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    /* images that span the auxiliary overlay */
+    .menu-aux .aux-img {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.08;
+      width: 8%;
+      max-width: 220px;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+    }
+
+    /* ensure the container inside menu-section is positioning context for absolute overlay */
+    .menu-section > .container { position: relative; }
+
+    /* Dekorativní obrázky rozprostřené procentuálně přes #menu-container */
     .deco-img {
       position: absolute;
-      width: 80px;
+      left: 0;
+      top: 0;
+      max-width: 220px;
       height: auto;
-      opacity: 0.08;
+      opacity: 0.10;
       pointer-events: none;
-      z-index: 0;
-      transition: transform 0.1s ease-out;
+      z-index: 2;
+      transform: translate(-50%, -50%) rotate(var(--rot, 0deg));
+      transition: transform 0.15s ease-out, opacity 0.2s ease;
     }
-    /*
-    .deco-img.deco-wolt {
-      top: 20%;
-      left: 5%;
-      transform: rotate(-15deg);
+
+    /* drobné otočení přes CSS proměnnou (sloučeno v .deco-img) */
+
+    /* Mírné zvětšení při scrollu (bez JS parallax) */
+    .deco-img.scroll-zoom { transition: transform 0.3s ease; }
+
+    /* Na mobilu schovej dekorace pro přehlednost */
+    @media (max-width: 820px) {
+      .deco-img { display: none; }
+      /* Make auxiliary images larger and fixed-size on small screens */
+  
     }
-    .deco-img.deco-foodora {
-      top: 50%;
-      right: 50%;
-      transform: rotate(deg);
-    }
-    .deco-img.deco-instagram {
-      bottom: 55%;
-      left: 20%;
-      transform: rotate(-8deg);
-    }
-    .deco-img.deco-logo {
-      bottom: 20%;
-      right: 8%;
-      width: 300px;
-      transform: rotate(10deg);
-    }*/
+    .menu-aux .aux-img {
+        width: 100px !important;
+        max-width: 100px !important;
+        opacity: 0.10 !important;
+      }
 
     #menu-container::before {
       content: '';
@@ -60,13 +89,17 @@
       border: 1px solid rgba(212, 165, 116, 0.3);
       border-radius: 10px;
       pointer-events: none;
-      z-index: 1;
+      z-index: 0; /* lower so decorative images can appear above this overlay */
     }
 
-    #menu-container > * {
-      position: relative;
-      z-index: 2;
-    }
+    /* overlay and layering:
+       ::before (frame) z-index:0
+       .deco-overlay (transparent layer) z-index:1
+       .deco-img (decorative images) z-index:2
+       content inside container z-index:3 */
+    .deco-overlay { position: absolute; inset: 0; background: rgb(242, 0, 255); pointer-events: none; z-index: 1; }
+    .deco-img { z-index: 2; }
+    #menu-container > * { position: relative; z-index: 3; }
 
     .menu-table { 
       width: 100%; 
@@ -158,7 +191,7 @@
       <a href="menu.html" class="header-link">MENU</a>
       <a href="#napojovy-listek" class="sub-link napojovy">NÁPOJOVÝ LÍSTEK</a>
     </div>
-    <a href="index.html" class="header-logo">
+    <a href="main.html" class="header-logo">
       <img class="logo_stred" src="logos.png" alt="Logo">
     </a>
     <div class="nav-item-container">
@@ -178,15 +211,41 @@
 <section class="menu-section">
   <div class="container text-center">
     <div id="menu-container">
-      <!-- Dekorativní obrázky s parallax -->
-      <img src="wolt.webp" class="deco-img deco-wolt" data-rotation="-15" alt="">
-      <img src="foodora.webp" class="deco-img deco-foodora" data-rotation="12" alt="">
-      <img src="instagram.webp" class="deco-img deco-instagram" data-rotation="-8" alt="">
-      <img src="logos.png" class="deco-img deco-logo" data-rotation="10" alt="">
-      
-      <h1 class="menu-title">MENU</h1>
+      <!-- Full-size transparent overlay (under decorative images) -->
+      <div class="deco-overlay" aria-hidden="true"></div>
+      <!-- dekorativni obrazky odstraneny -->
     </div>
-  </div>
+
+    <!-- New auxiliary container with same size as menu-container -->
+    <div class="menu-aux" aria-hidden="false">
+      <!-- Decorative images placed across the auxiliary overlay -->
+      <img src="wolt.webp" class="aux-img" style="left:8%; top:10%;" alt="">
+      <img src="foodora.webp" class="aux-img" style="left:28%; top:10%;" alt="">
+      <img src="instagram.webp" class="aux-img" style="left:48%; top:10%;" alt="">
+      <img src="wolt.webp" class="aux-img" style="left:68%; top:10%;" alt="">
+      <img src="foodora.webp" class="aux-img" style="left:88%; top:10%;" alt="">
+
+      <img src="instagram.webp" class="aux-img" style="left:8%; top:30%;" alt="">
+      <img src="wolt.webp" class="aux-img" style="left:28%; top:30%;" alt="">
+      <img src="foodora.webp" class="aux-img" style="left:48%; top:30%;" alt="">
+      <img src="instagram.webp" class="aux-img" style="left:68%; top:30%;" alt="">
+      <img src="wolt.webp" class="aux-img" style="left:88%; top:30%;" alt="">
+
+      <img src="foodora.webp" class="aux-img" style="left:8%; top:50%;" alt="">
+      <img src="instagram.webp" class="aux-img" style="left:28%; top:50%;" alt="">
+      <img src="wolt.webp" class="aux-img" style="left:48%; top:50%;" alt="">
+      <img src="foodora.webp" class="aux-img" style="left:68%; top:50%;" alt="">
+      <img src="instagram.webp" class="aux-img" style="left:88%; top:50%;" alt="">
+
+      
+      <img src="wolt.webp" class="aux-img" style="left:8%; top:70%;" alt="">
+      <img src="foodora.webp" class="aux-img" style="left:28%; top:70%;" alt="">
+      <img src="instagram.webp" class="aux-img" style="left:48%; top:70%;" alt="">
+      <img src="wolt.webp" class="aux-img" style="left:68%; top:70%;" alt="">
+      <img src="logos.png" class="aux-img" style="left:88%; top:70%; width:14%;" alt="">
+
+      <div style="text-align:center;color:#d4a574;font-weight:700;"></div>
+    </div>
 </section>
 </main>
 
@@ -339,6 +398,20 @@
 
       const jidloData  = await fetchCSV(CSV_URL_JIDLO);
       renderTable(jidloData, "JÍDELNÍ LÍSTEK", false);   // 3 sloupce bez velikosti
+      // wait for layout to stabilize (two animation frames) then reposition decos
+      if (typeof positionDecos === 'function') {
+        await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+        positionDecos();
+        // run again shortly to account for late layout changes (images/fonts)
+        setTimeout(() => { positionDecos(); randomizeDecosInsideTable(); }, 250);
+
+        // observe future changes inside menu-container and reposition when content changes
+        const mc = document.getElementById('menu-container');
+        if (mc && window.MutationObserver) {
+          const mo = new MutationObserver(() => { setTimeout(() => { positionDecos(); randomizeDecosInsideTable(); }, 80); });
+          mo.observe(mc, { childList: true, subtree: true });
+        }
+      }
     } catch(err) {
       console.error("Chyba při načítání menu:", err);
       const container = document.getElementById("menu-container");
@@ -346,7 +419,96 @@
     }
   }
 
-  loadMenu();
+  loadMenu().then(() => { try { initScrollParallax(); } catch(e) { /* ignore */ } });
+
+  // =========================
+  // Scroll / Parallax pro .aux-img
+  // =========================
+  function initScrollParallax() {
+    const container = document.querySelector('.menu-aux');
+    if (!container) return;
+    const imgs = Array.from(container.querySelectorAll('.aux-img'));
+
+    // assign a data-speed if not present (range -0.25 .. 0.25)
+    imgs.forEach((img, i) => {
+      if (!img.dataset.speed) {
+        // wider speed range for faster parallax: -0.6 .. 0.6
+        const s = (Math.random() * 1.2 - 0.6).toFixed(3);
+        img.dataset.speed = s;
+      }
+      img.style.willChange = 'transform';
+    });
+
+    let ticking = false;
+
+    function update() {
+      const containerTop = container.getBoundingClientRect().top + window.scrollY;
+      const scrollY = window.scrollY || window.pageYOffset;
+      imgs.forEach(img => {
+        const speed = parseFloat(img.dataset.speed) || 0;
+        const offset = (scrollY - containerTop) * speed * 1.2; // amplify movement
+        img.style.transform = `translate(-50%, calc(-50% + ${offset}px))`;
+      });
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }
+
+    // initial update
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', () => { update(); }, { passive: true });
+  }
+  // after menu is rendered, adjust deco positions
+  function positionDecos() {
+    const menuContainer = document.getElementById('menu-container');
+    if (!menuContainer) return;
+    const decos = menuContainer.querySelectorAll('.deco-img');
+    decos.forEach(img => {
+      // prefer data-top-percent if present, otherwise parse inline percent
+      let inlineStyle = img.getAttribute('style') || '';
+      const topMatch = (img.getAttribute('data-top-percent') || '').match(/([0-9.]+)/) || inlineStyle.match(/top:\s*([0-9.]+)%/);
+      if (topMatch) {
+        img.style.top = topMatch[1] + '%';
+      }
+      const leftMatch = inlineStyle.match(/left:\s*([0-9.]+)%/);
+      if (leftMatch) {
+        img.style.left = leftMatch[1] + '%';
+      }
+    });
+  }
+
+  // debounce resize
+  let _posTimer;
+  window.addEventListener('resize', () => { clearTimeout(_posTimer); _posTimer = setTimeout(positionDecos, 120); });
+
+  // call after initial load and after a short delay (in case fonts/images change layout)
+  window.addEventListener('load', () => setTimeout(positionDecos, 120));
+
+  // Randomize decorative images inside the visible menu table area
+  function randomizeDecosInsideTable() {
+    const container = document.getElementById('menu-container');
+    if (!container) return;
+    const table = container.querySelector('.menu-table');
+    const decos = container.querySelectorAll('.deco-img');
+    if (!table || decos.length === 0) return;
+    const rect = table.getBoundingClientRect();
+    const contRect = container.getBoundingClientRect();
+    // compute relative top range [%] within container that corresponds to table
+    const topStart = Math.max(0, (rect.top - contRect.top) / contRect.height) * 100;
+    const topEnd = Math.min(100, (rect.bottom - contRect.top) / contRect.height) * 100;
+    decos.forEach(img => {
+      const leftPct = 5 + Math.random() * 90; // 5%..95%
+      const topPct = topStart + Math.random() * Math.max(0, topEnd - topStart);
+      img.style.left = leftPct + '%';
+      img.style.top = topPct + '%';
+    });
+  }
 </script>
 
 <script>
@@ -371,27 +533,6 @@
   });
 </script>
 
-<script>
-  // Parallax efekt pro dekorativní obrázky
-  const menuContainer = document.getElementById('menu-container');
-  const decoImages = document.querySelectorAll('.deco-img');
-  
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    const containerTop = menuContainer.offsetTop;
-    const offset = (scrollY - containerTop) * 0.05; // rychlost parallaxu
-    
-    decoImages.forEach((img, index) => {
-      const baseRotation = img.dataset.rotation || 0;
-      const direction = index % 2 === 0 ? 1 : -1;
-      const yMove = offset * (0.8 + index * 0.9) * direction;
-      const xMove = offset * 0.3 * direction;
-      const rotationOffset = offset * 0.05 * direction;
-      
-      img.style.transform = `translate(${xMove}px, ${yMove}px) rotate(${parseFloat(baseRotation) + rotationOffset}deg)`;
-    });
-  });
-</script>
 
 </body>
 </html>

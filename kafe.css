@@ -3,6 +3,9 @@
     margin: 0;
     padding: 0;
 }
+body{
+    background-color: black;
+}
 
 .container,
 .header,
@@ -11,7 +14,7 @@
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
- 
+     
 
 html, body {
     height: 100%;
@@ -45,7 +48,7 @@ main {
     justify-content:center;
     padding: 0px 20px 20px 20px;
     position: absolute;
-    top: 10px;
+    top: 0;
     left: 0;
     right: 0;
     z-index: 100;
@@ -82,7 +85,12 @@ main {
     border: none;
     padding: 10px;
     z-index: 1001;
-    position: relative;
+    position: absolute;
+    top: 12px;
+    right: 20px;
+}
+.nav-menu.active {
+    position:absolute; /* dostatečná výška pro zobrazení menu */
 }
 
 .hamburger span {
@@ -161,6 +169,13 @@ main {
     display: none; /* Skryté defaultně */
 }
 
+/* When hamburger/menu opens, push content down to avoid overlap */
+
+
+main.menu-open .gallery-center {
+    padding-top: 250px !important;
+}
+
 .header-logo img {
     height: 150px;
     width: auto;
@@ -235,6 +250,17 @@ main {
     background: transparent;
     min-height: 100vh;
 }
+
+/* Gallery section to match menu spacing and behavior */
+.gallery-section {
+    padding: 80px 0 60px 0;
+    background: transparent;
+    min-height: 100vh;
+}
+
+.gallery-article > .container { position: relative; }
+
+.gallery-grid { max-width: 1400px; margin: 0 auto; }
 
 .menu-buttons {
     display: flex;
@@ -333,6 +359,21 @@ main {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     vertical-align: middle;
 }
+
+/* Hover: oválné poli, mírné zvětšení a 50% průhledné barvy */
+.menu-table tr:hover {
+    border-radius: 999px;
+    background: linear-gradient(45deg, rgba(234, 211, 186, 0.5), rgba(255,255,255,0.5));
+    border-left: 10px solid rgba(212,165,116,0.5);
+     border-right: 10px solid rgba(212,165,116,0.5);
+    transform: scale(1.02);
+    transition: background 0.25s ease, transform 0.12s ease, box-shadow 0.2s ease;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    cursor: pointer;
+    z-index: 2;
+}
+
+
 
 .item-name {
     font-weight: 600;
@@ -442,9 +483,6 @@ main {
     border-bottom: none;
 }
 
-.menu-table tr:hover:not(.category-row) {
-    background-color: #faf8f5;
-}
 
 .menu-table td {
     padding: 1rem 0.5rem;
@@ -1381,7 +1419,9 @@ footer p {
 
     #jmeno, #telefon, #osoby, #datum, #od, #do { grid-column: span 1; }
 } #rezForm button { grid-column: span 2; }
- 
+ @media (max-width:1027px) and (min-width: 993px) {
+ .header.link{padding-left :20px; padding-right: 20px;}
+}
 /* Hamburger pro všechny menší obrazovky */
 @media (max-width: 822px) {
     .hamburger { 
@@ -1397,6 +1437,8 @@ footer p {
         border-radius: 4px;
         transition: 0.3s;
     }
+    /* When mobile nav is opened, push main content down */
+   
     .nav-menu {
     
         display: flex;
@@ -1436,7 +1478,7 @@ footer p {
 /* Desktop (993px - 1200px) */
 @media (min-width: 993px) and (max-width: 1200px) {
     .header { gap: 6.4%; }
-    .header-link { font-size: 21px; padding: 12px 40px; }
+    .header-link { font-size: 21px; padding: 12px 35px; }
     .header-logo img { height: 150px; padding-top: 20px; }
     .hero-content h1 { font-size: 4rem; }
     .hamburger { display: none; }
@@ -1497,3 +1539,8 @@ footer p {
     border-color: #375141;
     box-shadow: 0 0 5px rgba(55, 81, 65, 0.3);
 }
+
+    .nav-menu.active {
+        position: absolute !important;
+    }
+     

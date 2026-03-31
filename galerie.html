@@ -6,9 +6,24 @@
     <title>Galerie - Kafe Střekov</title>
     <link rel="stylesheet" href="kafe.css">
     <style>
-        body { background: linear-gradient(135deg,#f5f1ed 0%,#faf8f5 100%); }
+        main.menu-open {
+    padding-top: 250px !important;
+}
+        body { background: linear-gradient(90deg,#391d00 0%,#3d290a 100%); }
         .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
         .gallery-center { display:flex; justify-content:center; }
+        /* Dark panel behind gallery content */
+        .gallery-panel {
+            background: rgba(18, 12, 8, 0.64);
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 10px 36px rgba(0,0,0,0.45);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            color: #f3efe8;
+        }
+        .gallery-panel .gallery-title { color: #fff; }
+        .gallery-panel #galleryMsg { color: #e6e1da; }
         .gallery-grid { display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap:16px; width:100%; align-items:start; }
         /* Portrait-friendly thumbnails */
         .gallery-grid img { width:100%; aspect-ratio: 3/4; object-fit:cover; border-radius:8px; display:block; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform .28s ease, box-shadow .28s ease; }
@@ -19,8 +34,11 @@
         @media (min-width: 822px) and (max-width: 1200px) {
             .gallery-center { padding-top: 160px; }
         }
-        @media (max-width: 768px) {
+        @media (max-width: 821px) {
             .gallery-center { padding-top: 100px; }
+        }
+        @media (max-width: 822px) {
+            .gallery-title { padding-right: 0 !important; }
         }
          @media (min-width: 1201px) {
             .gallery-center { padding-top: 200px; }
@@ -34,7 +52,7 @@
             <nav class="nav-menu" id="navMenu">
                 <a href="main.html" class="header-link">O NÁS</a>
                 <a href="menu.html" class="header-link">MENU</a>
-                <a href="index.html" class="header-logo"><img class="logo_stred" src="logos.png" alt="Logo"></a>
+                <a href="main.html" class="header-logo"><img class="logo_stred" src="logos.png" alt="Logo"></a>
                 <a href="rezervace.html" class="header-link">REZERVACE</a>
                 <a href="galerie.html" class="header-link">GALERIE</a>
             </nav>
@@ -43,9 +61,11 @@
 
     <main class="gallery-center">
         <div class="container">
-            <h1 class="gallery-title" style="text-align:center;margin-bottom:12px;padding-right: 11.5%;">Galerie</h1>
-            <div id="galleryGrid" class="gallery-grid" aria-live="polite"></div>
-            <p id="galleryMsg" style="text-align:center;color:#666;margin-top:12px"></p>
+            <div class="gallery-panel">
+                <h1 class="gallery-title" style="text-align:center;margin-bottom:12px;padding-right: 11.5%;">Galerie</h1>
+                <div id="galleryGrid" class="gallery-grid" aria-live="polite"></div>
+                <p id="galleryMsg" style="text-align:center;margin-top:12px"></p>
+            </div>
         </div>
     </main>
 
@@ -85,6 +105,27 @@
                 console.error(err);
                 msg.textContent = 'Galerii se nepodařilo načíst.';
             }
+        })();
+    </script>
+    <script>
+        // Hamburger menu JS (toggle classes)
+        (function(){
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('navMenu');
+            const headerLinks = navMenu ? navMenu.querySelectorAll('.header-link') : [];
+            if (!hamburger || !navMenu) return;
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                document.querySelector('main')?.classList.toggle('menu-open');
+                document.querySelector('.mobile-menu-buttons')?.classList.toggle('menu-open');
+            });
+            headerLinks.forEach(link => link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.querySelector('main')?.classList.remove('menu-open');
+                document.querySelector('.mobile-menu-buttons')?.classList.remove('menu-open');
+            }));
         })();
     </script>
 </body>
