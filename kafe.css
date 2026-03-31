@@ -798,6 +798,7 @@ footer p {
 
 /* Přehled obsazenosti */
 .obsazenost-prehled {
+    height: 100px;
     min-height: 730px !important;
         width: 500px;
     flex: 1;
