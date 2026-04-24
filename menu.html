@@ -415,8 +415,8 @@
     // assign a data-speed if not present (range -0.25 .. 0.25)
     imgs.forEach((img, i) => {
       if (!img.dataset.speed) {
-     436|         // pouze kladná rychlost pro pohyb jen dolů: 0.15 .. 0.6
-437|         const s = (Math.random() * 0.45 + 0.15).toFixed(3);
+          // pouze kladná rychlost pro pohyb jen dolů: 0.15 .. 0.6
+   const s = (Math.random() * 0.45 + 0.15).toFixed(3);
       }
       img.style.willChange = 'transform';
     });
