@@ -7,7 +7,25 @@
   <link rel="stylesheet" href="kafe.css">
   <style>
 
-
+.hamburger-only-images {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 8;
+  display: none; /* výchozí je schované */
+}
+.hamburger-only-images .hamburger-img {
+  position: absolute;
+  width: 200px;
+  opacity: 0.23;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.menu-open .hamburger-only-images,
+body.menu-open .hamburger-only-images {
+  display: block !important;
+}
+    
     #menu-container {
          border: 2px solid #d4a574;
     border-radius: 15px;
@@ -225,10 +243,15 @@
       <!-- Decorative images placed across the auxiliary overlay -->
       <img src="bi1.png" class="aux-img" style="left:8%; top:10%;" alt="">
       <img src="bi.png" class="aux-img" style="left:90%; top:35%;" alt="">
-      <img src="bi2.png" class="aux-img" style="left:10%; top:90%;" alt="">
-      <img src="bi3.png" class="aux-img" style="left:80%; top:60%;" alt="">
-      <img src="bi4.png" class="aux-img" style="left:10%; top:55%;" alt="">
-
+      <img src="bi3.png" class="aux-img" style="left:10%; top:55%;" alt="">
+      <img src="bi4.png" class="aux-img" style="left:80%; top:65%;" alt="">
+<!-- Obrázky viditelné pouze při aktivním hamburger menu -->
+<div class="hamburger-only-images">
+  <img src="bi5.png" class="hamburger-img" style="left:50%; top:20%;" alt="">
+  <img src="bi.png" class="hamburger-img" style="left:60%; top:45%;" alt="">
+  <img src="bi4.png" class="hamburger-img" style="left:40%; top:60%;" alt="">
+  <img src="bi1.png" class="hamburger-img" style="left:62%; top:73%;" alt="">
+</div>
     
 
       <div style="text-align:center;color:#d4a574;font-weight:700;"></div>
