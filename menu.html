@@ -7,18 +7,16 @@
   <link rel="stylesheet" href="kafe.css">
   <style>
 
-.hamburger-only-images {
-
+.hamburger-img {
   display: none;
+ 
 }
-.hamburger-only-images .hamburger-img {
-  display:block;
-}
-body.hamburger-active .hamburger-only-images {
-  display: block ;
-}
-@media (max-width: 780px) {
-  .hamburger-only-images .hamburger-img { width: 120px !important; }
+
+/* Pokud je obrazovka 520px a méně, zobraz */
+@media (max-width: 820px) {
+  .hamburger-img {
+    display: block;
+  }
 }
     
     #menu-container {
@@ -249,13 +247,12 @@ body.hamburger-active .hamburger-only-images {
       <img src="bi3.png" class="aux-img" style="left:10%; top:55%;" alt="">
       <img src="bi4.png" class="aux-img" style="left:80%; top:7%%;" alt="">
 <!-- Obrázky viditelné pouze při aktivním hamburger menu -->
-<div class="hamburger-only-images menu-aux">
-  <img src="bi5.png" class="hamburger-img aux-img" id="hamburger-img" style="left:50%; top:20%;" alt="">
-  <img src="bi.png" class="hamburger-img aux-img" id="hamburger-img"  style="left:60%; top:45%;" alt="">
-  <img src="bi4.png" class="hamburger-img aux-img" id="hamburger-img" style="left:40%; top:60%;" alt="">
-  <img src="bi1.png" class="hamburger-img aux-img" id="hamburger-img"  style="left:62%; top:73%;" alt="">
-</div>
-    
+
+ <img src="bi5.png" class=" aux-img" id="hamburger-img" style="left:50%; top:20%;" alt="">
+  <img src="bi.png" class="aux-img" id="hamburger-img"  style="left:60%; top:45%;" alt="">
+  <img src="bi4.png" class="aux-img" id="hamburger-img" style="left:40%; top:60%;" alt="">
+  <img src="bi1.png" class="aux-img" id="hamburger-img"  style="left:62%; top:73%;" alt="">
+
 
       <div style="text-align:center;color:#d4a574;font-weight:700;"></div>
     </div>
@@ -529,7 +526,7 @@ body.hamburger-active .hamburger-only-images {
   const hamburger = document.getElementById('hamburger');
   const navMenu = document.getElementById('navMenu');
   const headerLinks = navMenu.querySelectorAll('.header-link');
-   const himg = document.getElementById('hamburger-img');
+
  
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('active');
@@ -537,7 +534,7 @@ body.hamburger-active .hamburger-only-images {
       document.querySelector('main')?.classList.toggle('menu-open');
       document.querySelector('.mobile-menu-buttons')?.classList.toggle('menu-open');
       // removed dynamic paddingTop; layout handled by CSS (.menu-open)
-        himg.classList.toggle('hamburger-active');
+       
     });
   headerLinks.forEach(link => {
         link.addEventListener('click', () => {
