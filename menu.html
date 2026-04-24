@@ -443,7 +443,7 @@
        imgs.forEach((img, i) => {
      if (!img.dataset.speed) {
          // pouze kladná rychlost pro pohyb jen dolů: 0.15 .. 0.6
-       const s = (Math.random() * 0.45 + 0.15).toFixed(3);
+       const s = 3;
       img.dataset.speed = s;
       }
       img.style.willChange = 'transform';
