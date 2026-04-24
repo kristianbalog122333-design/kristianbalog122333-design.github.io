@@ -529,6 +529,7 @@ body.hamburger-active .hamburger-only-images {
   const hamburger = document.getElementById('hamburger');
   const navMenu = document.getElementById('navMenu');
   const headerLinks = navMenu.querySelectorAll('.header-link');
+   const himg = document.getElementById('hamburger-img');
  
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('active');
@@ -536,7 +537,7 @@ body.hamburger-active .hamburger-only-images {
       document.querySelector('main')?.classList.toggle('menu-open');
       document.querySelector('.mobile-menu-buttons')?.classList.toggle('menu-open');
       // removed dynamic paddingTop; layout handled by CSS (.menu-open)
-        document.body.classList.toggle('hamburger-active');
+        himg.classList.toggle('hamburger-active');
     });
   headerLinks.forEach(link => {
         link.addEventListener('click', () => {
