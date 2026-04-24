@@ -11,19 +11,20 @@
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
   pointer-events: none;
-  z-index: 8;
-  display: none; /* výchozí je schované */
+  z-index: 9;
+  display: none;
 }
 .hamburger-only-images .hamburger-img {
   position: absolute;
-  width: 200px;
-  opacity: 0.23;
+  width: 220px;
+  opacity: 0.18;
   pointer-events: none;
-  transition: opacity 0.3s;
 }
-.menu-open .hamburger-only-images,
-body.menu-open .hamburger-only-images {
-  display: block !important;
+body.hamburger-active .hamburger-only-images {
+  display: block;
+}
+@media (max-width: 520px) {
+  .hamburger-only-images .hamburger-img { width: 120px !important; }
 }
     
     #menu-container {
@@ -533,6 +534,7 @@ body.menu-open .hamburger-only-images {
       document.querySelector('main')?.classList.toggle('menu-open');
       document.querySelector('.mobile-menu-buttons')?.classList.toggle('menu-open');
       // removed dynamic paddingTop; layout handled by CSS (.menu-open)
+        document.body.classList.toggle('hamburger-active');
     });
   headerLinks.forEach(link => {
         link.addEventListener('click', () => {
