@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kristianbalog122333-design.github.io/sitemap.xml
+Sitemap: https:/kafestrekov.cz/sitemap.xml
 
